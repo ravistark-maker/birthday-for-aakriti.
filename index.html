@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Aakriti!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap');
+        
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #ffb8b8;
+            --text: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffdfeb 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--text);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary);
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .personal-info {
+            background: rgba(255,255,255,0.8);
+            border-radius: 15px;
+            padding: 1rem;
+            margin: 1rem auto;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .info-item {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+        
+        .info-item span {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 1rem 0;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn:hover {
+            background: #ff4757;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .surprise-box {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 2rem auto;
+            max-width: 800px;
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .countdown {
+            font-size: 5rem;
+            color: var(--primary);
+            margin: 2rem 0;
+            font-weight: bold;
+        }
+        
+        .photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .photo-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .photo-container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .photo:hover {
+            transform: scale(1.05);
+        }
+        
+        .crown {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            z-index: 10;
+            filter: drop-shadow(0 0 5px gold);
+        }
+        
+        .wish-container {
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: center;
+            min-height: 100px;
+        }
+        
+        .wish {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary);
+            display: none;
+        }
+        
+        .cake-container {
+            font-size: 5rem;
+            margin: 2rem 0;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .cake-container:hover {
+            transform: scale(1.1);
+        }
+        
+        .final-message {
+            font-size: 2.5rem;
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary);
+            margin: 2rem 0;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 1s ease;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+        }
+        
+        .final-message.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: -1;
+            opacity: 0;
+            animation: float 5s linear forwards;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 100;
+        }
+        
+        .music-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        footer {
+            margin-top: 3rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* Typewriter effect */
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid var(--primary);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 2px;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary); }
+        }
+        
+        /* Heart animation */
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: heart-float 3s ease-in-out forwards;
+        }
+        
+        @keyframes heart-float {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        /* Favorite song section */
+        .song-container {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(255,255,255,0.8);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .song-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .play-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .play-btn:hover {
+            background: #ff4757;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Birthday Aakriti!</h1>
+        <p>From: Ravi</p>
+        
+        <div class="personal-info">
+            <div class="info-item">Mummy: <span>Reena</span></div>
+            <div class="info-item">Papa: <span>Ramkyash</span></div>
+            <div class="info-item">Favorite Hero: <span>Aditya</span></div>
+            <div class="info-item">Favorite Place: <span>Mumbai</span></div>
+        </div>
+        
+        <div class="song-container">
+            <div class="song-title">"Thora Thora Pyar Hua Tumse"</div>
+            <p>Your favorite song!</p>
+            <button class="play-btn" onclick="playFavoriteSong()">Play Song</button>
+        </div>
+        
+        <button class="btn" id="openSurprise">Click for Your Surprise!</button>
+        
+        <div class="surprise-box" id="surpriseBox">
+            <div class="countdown" id="countdown">5</div>
+            
+            <div class="photo-gallery" id="photoGallery">
+                <!-- Photos will be added dynamically -->
+            </div>
+            
+            <div class="wish-container" id="wishContainer">
+                <!-- Wishes will be added dynamically -->
+            </div>
+            
+            <div class="cake-container" onclick="cutCake()">🎂</div>
+            
+            <div class="final-message" id="finalMessage">BEST FRIEND FOREVER</div>
+        </div>
+        
+        <footer>
+            Made with ❤ by Ravi | Birthday: 02 August
+        </footer>
+    </div>
+    
+    <div class="music-control" onclick="toggleMusic()">
+        <div class="music-icon">🎵</div>
+    </div>
+    
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="favoriteSong">
+        <source src="https://example.com/thora-thora-pyar-hua-tumse.mp3" type="audio/mpeg">
+        <!-- Replace with actual song link -->
+    </audio>
+https://youtu.be/BHlCNUyu5EU?si=3PRVFUcLo-eg4Af8&t=38
+    <script>
+        // Aakriti's photos
+        const photos = [
+            {url: "https://iili.io/FwKMAue.jpg", caption: "With Mummy Reena"},
+            {url: "https://iili.io/FwKMCG4.jpg", caption: "With Papa Ramkyash"},
+            {url: "https://iili.io/FwKMu99.jpg", caption: "In Mumbai"},
+            {url: "https://iili.io/FwKMI87.jpg", caption: "Aditya Fan Moment"},
+            {url: "https://iili.io/FwKMYnj.jpg", caption: "Special Memories"}
+        ];
+        
+        // Personalized wishes
+        const wishes = [
+            "Dear Aakriti, wishing you the happiest birthday!",
+            "May your day be filled with love from Reena Mummy and Ramkyash Papa!",
+            "Hope you get to visit Mumbai soon!",
+            "Wishing you more Aditya movies this year!",
+            "Thora thora pyar hua tumse... Happy Birthday!"
+        ];
+        
+        // DOM elements
+        const openBtn = document.getElementById('openSurprise');
+        const surpriseBox = document.getElementById('surpriseBox');
+        const countdownEl = document.getElementById('countdown');
+        const photoGallery = document.getElementById('photoGallery');
+        const wishContainer = document.getElementById('wishContainer');
+        const finalMessage = document.getElementById('finalMessage');
+        const bgMusic = document.getElementById('bgMusic');
+        const favoriteSong = document.getElementById('favoriteSong');
+        
+        // Play favorite song
+        function playFavoriteSong() {
+            bgMusic.pause();
+            favoriteSong.play().catch(e => alert("Please allow audio to play the song"));
+        }
+        
+        // Open surprise box
+        openBtn.addEventListener('click', function() {
+            this.style.display = 'none';
+            surpriseBox.style.display = 'block';
+            createHearts();
+            startCountdown();
+        });
+        
+        // Create floating hearts animation
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '❤';
+                    heart.style.left = Math.random() * window.innerWidth + 'px';
+                    heart.style.top = window.innerHeight + 'px';
+                    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    document.body.appendChild(heart);
+                    
+                    // Remove heart after animation
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 3000);
+                }, i * 150);
+            }
+        }
+        
+        // Countdown function
+        function startCountdown() {
+            let count = 5;
+            const timer = setInterval(() => {
+                countdownEl.textContent = count;
+                count--;
+                
+                if (count < 0) {
+                    clearInterval(timer);
+                    countdownEl.style.display = 'none';
+                    showPhotos();
+                    showWishes();
+                }
+            }, 1000);
+        }
+        
+        // Show photos one by one
+        function showPhotos() {
+            photos.forEach((photo, index) => {
+                setTimeout(() => {
+                    const photoDiv = document.createElement('div');
+                    photoDiv.className = 'photo-container';
+                    photoDiv.innerHTML = `
+                        <img src="${photo.url}" alt="${photo.caption}" class="photo">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2583/2583344.png" class="crown">
+                        <div class="photo-caption">${photo.caption}</div>
+                    `;
+                    photoGallery.appendChild(photoDiv);
+                    
+                    // Trigger animation
+                    setTimeout(() => {
+                        photoDiv.classList.add('show');
+                    }, 100);
+                    
+                }, index * 500);
+            });
+        }
+        
+        // Show wishes with typewriter effect
+        function showWishes() {
+            wishes.forEach((wish, index) => {
+                setTimeout(() => {
+                    const wishDiv = document.createElement('div');
+                    wishDiv.className = 'wish typewriter';
+                    wishDiv.textContent = wish;
+                    wishContainer.appendChild(wishDiv);
+                    
+                    // Show the wish
+                    setTimeout(() => {
+                        wishDiv.style.display = 'block';
+                        
+                        // After animation completes
+                        setTimeout(() => {
+                            wishDiv.classList.remove('typewriter');
+                            wishDiv.style.borderRight = 'none';
+                        }, 3500);
+                    }, 100);
+                    
+                }, index * 4000);
+            });
+            
+            // Show final message after all wishes
+            setTimeout(() => {
+                finalMessage.classList.add('show');
+                createFlowers();
+            }, wishes.length * 4000);
+        }
+        
+        // Cake cutting function
+        function cutCake() {
+            const cake = document.querySelector('.cake-container');
+            cake.textContent = '🍰';
+            
+            // Create explosion effect
+            for (let i = 0; i < 30; i++) {
+                createFlower(
+                    cake.getBoundingClientRect().left + 50, 
+                    cake.getBoundingClientRect().top + 50,
+                    true // isExplosion
+                );
+            }
+        }
+        
+        // Create falling flowers
+        function createFlowers() {
+            setInterval(() => {
+                createFlower(
+                    Math.random() * window.innerWidth,
+                    -50,
+                    false // isExplosion
+                );
+            }, 300);
+        }
+        
+        function createFlower(x, y, isExplosion) {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            
+            // Random flower emoji
+            const flowers = ['🌸', '🌹', '🌺', '🌻', '🌼', '🌷', '💐', '🏵'];
+            const randomFlower = flowers[Math.floor(Math.random() * flowers.length)];
+            
+            flower.textContent = randomFlower;
+            flower.style.left = x + 'px';
+            flower.style.top = y + 'px';
+            flower.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            
+            if (isExplosion) {
+                flower.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                flower.style.left = (x - 50 + Math.random() * 100) + 'px';
+            }
+            
+            document.body.appendChild(flower);
+            
+            // Remove after animation
+            setTimeout(() => {
+                flower.remove();
+            }, 5000);
+        }
+        
+        // Music control
+        function toggleMusic() {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                document.querySelector('.music-icon').textContent = '🔊';
+            } else {
+                bgMusic.pause();
+                document.querySelector('.music-icon').textContent = '🔇';
+            }
+        }
+        
+        // Start music automatically (muted to comply with browser autoplay policies)
+        bgMusic.volume = 0.3;
+        document.addEventListener('click', () => {
+            bgMusic.play().catch(e => console.log("Audio play prevented"));
+        });
+    </script>
+</body>
+</html>
